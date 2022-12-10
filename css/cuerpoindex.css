@@ -1,0 +1,158 @@
+@font-face{
+            font-family: 'Lato.woff2',cursive;
+            src: url('fonts/Lato.woff2');
+        }
+
+.imC{
+    width: auto;
+    height: 600px;
+}
+
+.contenedor{
+    display: grid;
+    grid-gap: 0px;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-areas: "Intro Intro Intro"
+                        "carru carru carru"
+                        "sec3 sec3 sec3"
+                        "sec4 sec5 sec5"
+                        "sec6 sec7 sec8"
+                        "sec9 sec9 sec9";
+}
+
+
+
+.contenedor .Intro{
+    
+    /*grid-column-start: 1;
+    grid-column-end: 4; */
+    grid-column-start: Intro;
+    grid-column-end: Intro;
+    padding: 40px;
+    background: white;
+    color: black;
+    
+   
+}
+.slogan{
+    text-align: center;
+    font-size: 30px;
+    
+}
+.texintro{
+    text-align: center;
+    font-size: 18px;
+    
+}
+
+.contenedor .carru{
+    
+    /*grid-column-start: 1;
+    grid-column-end: 4; */
+    grid-column-start: carru;
+    grid-column-end: carru;
+    color: black;
+}
+.sec3{
+    text-align: center;
+}
+.contenedor .sec3{
+    grid-column-start: sec3;
+    grid-column-end: sec3;
+    padding: 40px;
+        background: white;
+    color: black;
+    
+}
+
+.contenedor .sec4{
+        background: white;
+
+    grid-area: sec4;
+    padding: 40px;
+    color: black;
+}
+
+.contenedor .sec5{
+       background: white;
+
+    grid-area: sec5;
+    padding: 40px;
+    color: black;
+}
+.textsec5_1{
+    font-size: 30px;
+}
+.textsec5_2{
+    font-size: 20px;
+}
+
+.contenedor .sec6{
+    background: black;
+    grid-area: sec6;
+    padding: 40px;
+    color: white;
+    text-align: justify;
+}
+.texsec6{
+    font-size: 20px;
+    text-align: center;
+}
+.texsec6_2{
+    font-size: 20px;
+    text-align: justify;
+}
+.contenedor .sec7{
+       background: black;
+    grid-area: sec7;
+    padding: 40px;
+    color: white;
+}
+.contenedor .sec8{
+    background: black;
+    grid-area: sec8;
+    padding: 40px;
+    color: white;
+}
+
+.contenedor .sec9{
+    background: white;
+    grid-area: sec9;
+    padding: 40px;
+    color: black;
+}
+.sec9{
+    text-align: center;
+}
+.imgcupon{
+    width: 15%;
+    height: auto;
+}
+
+.imgcard{
+    width: 350px;
+    height: 350px;
+}
+.cardt{
+    color: black;
+}
+.cardtit{
+    color: black;
+    text-align: center;
+    text-decoration: underline;
+}
+
+.msjuser{
+    padding: 40px;
+    background:#000000; 
+}
+.msj1{
+    color: white;
+    
+}
+.ulact{
+    background: #000000;
+    color: white;
+    padding: 15px;
+    text-align: center;
+}
