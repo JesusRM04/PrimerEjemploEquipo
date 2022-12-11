@@ -8,6 +8,7 @@
     <!-- JavaScript Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="css/estilosmenu.css">
+      <link rel="stylesheet" href="css/estilos.css">
     <link rel="icon" type="image/x-icon" href="img/logoi.ico">
 </head>
 
@@ -21,24 +22,21 @@
             <div class="collapse navbar-collapse" id="navbarNavDropdown">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="index.php">Inicio</a>
+                        <a class="nav-link active" aria-current="page" href="admin.php">Inicio</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="Articulos.php">Articulos</a>
+                        <a class="nav-link active" aria-current="page" href="consultar.php">Consultar Articulos</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="contacto.php">Contactanos</a>
+                        <a class="nav-link active" aria-current="page" href="registrar.php">Registrar Productos</a>
                     </li>
-                    
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
-                            Acerca de
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="acercade.php">Nuestra Empresa</a></li>
-                            
-                        </ul>
+                     <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="modificar.php">Modificar Productos</a>
+                         <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#">Eliminar Productos</a>
                     </li>
+                    </li>
+                         
                 </ul>
                 <?php
                     require_once("validarlogin.php");
@@ -135,9 +133,87 @@
             </div>
         </div>
     </div>
+    <div class="caja">
+        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method='post' enctype="multipart/form-data">
+             <div class="form-group">
+               <label for="eliminar">INGRESE EL ID EL PRODUCTO A ELIMINAR:</label>
+               <input type="number" name="eliminar" id="eliminar" required>
+              </div>
+              <button  type="submit" class="btn btn-success" name="submit">ELIMINAR PRODUCTO</button>
+        </form>
+    </div>
+    <br><br>
+    <?php 
+    $servidor="127.0.0.1:33065";
+    $cuenta="root";
+    $password="";
+    $bd="tienda";
+
+    //conexion a la base de datos
+    
+    $conexion = new mysqli($servidor,$cuenta,$password,$bd);
+
+    if ($conexion->connect_errno){
+         die('ERROR EN LA CONEXION DE LA BASE DE DATOS');
+    }
+    else{
+     //vemos datos en un tabla de html
+          if(isset($_POST['submit'])){
+                //obtenemos datos del formulario
+                $eliminar = $_POST['eliminar'];
+                $sql = "DELETE FROM productos WHERE id='$eliminar'";
+                
+                $conexion->query($sql);  
+                if ($conexion->affected_rows >= 1){ 
+                    echo '<script> alert("PRODUCTO ELIMINADO ") </script>';
+                }//fin
+                else{
+                    echo '<script> alert("EL PRODUCTO NO EXISTE") </script>';
+                }
+         }
+         $sql = 'select * from productos';//hacemos cadena con la sentencia mysql que consulta todo el contenido de la tabla
+         $resultado = $conexion -> query($sql); //aplicamos sentencia
+
+         if ($resultado -> num_rows){ //si la consulta genera registros
+            echo '<div class="caja">';
+              echo '<div style="margin-left: 20px;">';
+              echo '<table class="table table-hover" style="width:50%;">';
+                echo '<tr>';
+                    echo '<th>ID DEL PRODUCTO</th>';
+                    echo '<th>NOMBRE DEL PRODUCTO</th</th>';
+                    echo '<th>CATEGORIA DEL PRODUCTO</th>';
+                    echo '<th>DESCRIPCION DEL PRODUCTO</th>';
+                    echo '<th>CANTIDAD DEL PRODUCTO</th>';
+                    echo '<th>PRECIO DEL PRODUCTO</th>'; 
+                    echo '<th>IMAGEN DEL PRODUCTO</th>';
+                echo '</tr>';
+                while( $fila = $resultado -> fetch_assoc()){ //recorremos los registros obtenidos de la tabla
+                    echo '<tr>';
+                        echo '<td>'. $fila['id'] . '</td>';
+                        echo '<td>'. $fila['Nombre'] . '</td>';
+                        echo '<td>'. $fila['Categoria'] . '</td>';
+                        echo '<td>'. $fila['Descripcion'] . '</td>';
+                        echo '<td>'. $fila['Existencias'] . '</td>';
+                        echo '<td> $'. $fila['Precio'] . '</td>';
+                      ?>                    
+                         <td><img class="img"src="<?php echo  "img/".$fila['Imagen'] ?>"></td>
+                      <?php  
+                        echo '</tr>';
+
+                }   
+                echo '</table">';
+             echo '</div>';
+        echo '</div>';
+
+         }
+         else{
+               echo '<script> alert("NO HAY PRODUCTOS") </script>';
+         }
 
 
 
-</body>
 
-</html>
+    }
+    
+
+?>

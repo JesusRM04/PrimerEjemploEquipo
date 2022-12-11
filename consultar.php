@@ -8,6 +8,7 @@
     <!-- JavaScript Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="css/estilosmenu.css">
+    <link rel="stylesheet" href="css/estilos.css">
     <link rel="icon" type="image/x-icon" href="img/logoi.ico">
 </head>
 
@@ -21,24 +22,21 @@
             <div class="collapse navbar-collapse" id="navbarNavDropdown">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="index.php">Inicio</a>
+                        <a class="nav-link active" aria-current="page" href="admin.php">Inicio</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="Articulos.php">Articulos</a>
+                        <a class="nav-link active" aria-current="page" href="#">Consultar Articulos</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="contacto.php">Contactanos</a>
+                        <a class="nav-link active" aria-current="page" href="registrar.php">Registrar Productos</a>
                     </li>
-                    
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
-                            Acerca de
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="acercade.php">Nuestra Empresa</a></li>
-                            
-                        </ul>
+                     <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="modificar.php">Modificar Productos</a>
+                         <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="eliminar.php">Eliminar Productos</a>
                     </li>
+                    </li>
+                         
                 </ul>
                 <?php
                     require_once("validarlogin.php");
@@ -134,9 +132,70 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div>      
+<?php
+$servidor="127.0.0.1:33065";
+$cuenta="root";
+$password="";
+$bd="tienda";
+$conexion = new mysqli($servidor,$cuenta,$password,$bd);
+ if ($conexion->connect_errno){
+         die('Error en la conexion');
+    }
+    else{
+       
+        
+   
+         //vemos datos en un tabla de html
+         $sql = 'select * from productos';//hacemos cadena con la sentencia mysql que consulta todo el contenido de la tabla
+         $resultado = $conexion -> query($sql); //aplicamos sentencia
+
+         if ($resultado -> num_rows){ //si la consulta genera registros
+             echo '<h3>PRODUCTOS REGISTRADOS</h3>';
+             echo '<div class="caja">';
+              echo '<div style="margin-left: 20px;">';
+              echo '<table class="table table-hover" style="width:50%;">';
+              
+                    echo '<tr>';
+                    echo '<th>ID DEL PRODUCTO</th>';
+                    echo '<th>NOMBRE DEL PRODUCTO</th>';
+                    echo '<th>CATEGORIA DEL PRODUCTO</th>';
+                    echo '<th>DESCRIPCION DEL PRODUCTO</th>';
+                    echo '<th>CANTIDAD DEL PRODUCTO</th>';
+                    echo '<th>PRECIO DEL PRODUCTO</th>'; 
+                    echo '<th>IMAGEN DEL PRODUCTO</th>';
+                echo '</tr>';
+                while( $fila = $resultado -> fetch_assoc()){ //recorremos los registros obtenidos de la tabla
+                   
+                    echo '<tr>';
+                        echo '<td>'. $fila['id'] . '</td>';
+                        echo '<td>'. $fila['Nombre'] . '</td>';
+                        echo '<td>'. $fila['Categoria'] . '</td>';
+                        echo '<td>'. $fila['Descripcion'] . '</td>';
+                        echo '<td>'. $fila['Existencias'] . '</td>';
+                        echo '<td> $'. $fila['Precio'] . '</td>';
+                                        
+                      echo '<td><img class="img" src=" img/'.$fila['Imagen'].'"></td>';
+                  
+                  
+                      echo '</tr>';
+
+                } 
+
+              echo'  </table">';
+            echo' </div>';
+              echo '</div>';
+
+         }
+
+         else{
+               echo '<script> alert("NO HAY PRODUCTOS") </script>';
+         }
 
 
+    }
+
+?>
 
 </body>
 

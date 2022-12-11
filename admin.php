@@ -21,24 +21,21 @@
             <div class="collapse navbar-collapse" id="navbarNavDropdown">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="index.php">Inicio</a>
+                        <a class="nav-link active" aria-current="page" href="#">Inicio</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="Articulos.php">Articulos</a>
+                        <a class="nav-link active" aria-current="page" href="consultar.php">Consultar Articulos</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="contacto.php">Contactanos</a>
+                        <a class="nav-link active" aria-current="page" href="registrar.php">Registrar Productos</a>
                     </li>
-                    
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
-                            Acerca de
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="acercade.php">Nuestra Empresa</a></li>
-                            
-                        </ul>
+                     <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="modificar.php">Modificar Productos</a>
+                         <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="eliminar.php">Eliminar Productos</a>
                     </li>
+                    </li>
+                         
                 </ul>
                 <?php
                     require_once("validarlogin.php");
