@@ -1,0 +1,19 @@
+ .img{
+   height: 100px;
+   width: 100px;
+}
+table{
+   border:1px solid black;
+
+}
+.caja{
+   padding-left:300px;
+
+}
+h3{
+   text-align: center;
+}
+.caja2{
+   display: flex;
+  justify-content: space-evenly;
+}
