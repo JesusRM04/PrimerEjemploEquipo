@@ -1,0 +1,75 @@
+
+
+/*-->AQUI COMIENZA EL CODIGO CSS DEL PIE DE PAGINA<--*/
+#caja2 {
+    height: 200px;
+    background: #000;
+    color: white;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    font-size: 16px;
+}
+
+#caja2 a:hover{
+    text-decoration-line: underline;
+}
+
+.color {
+    color: white;
+    text-decoration: none;
+}
+
+select {
+    background: #000;
+    color: white;
+    border: 1px solid white;
+    padding: 7px;
+}
+
+#icon {
+    font-size: 40px;
+    margin: 5px;
+    color: white; 
+}
+
+/*-->AQUI COMIENZA EL CODIGO DEL RELOJ<--*/
+.clockdate-wrapper {
+    background-color: #000;
+    padding:15px;
+    max-width:350px;
+    width:100%;
+    text-align:center;
+    border-radius:5px;
+    margin:0 auto;
+    margin-top:15%;
+}
+#clock{
+    background-color:#000;
+    font-family: sans-serif;
+    font-size:30px;
+    text-shadow:0px 0px 1px #fff;
+    color:#fff;
+}
+#clock span {
+    color:white;
+    text-shadow:0px 0px 1px #000;
+    font-size:30px;
+    position:relative;
+    
+}
+#date {
+    letter-spacing:5px;
+    font-size:10px;
+    font-family:arial,sans-serif;
+    color:#fff;
+}
+
+.contenedor:hover .imagen {
+    -webkit-transform:scale(1.3);
+    transform:scale(1.3);
+}
+.contenedor {
+    overflow:hidden;
+}

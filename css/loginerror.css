@@ -1,0 +1,21 @@
+
+.imglogerror{
+    width: 20%
+        
+}
+.containererror{
+    text-align: center;
+    
+}
+
+.hloginerror{
+    background: #000000;
+    padding: 30px;
+    color: white;
+}
+
+.ulact{
+    background: #000000;
+    color: white;
+    padding: 15px;
+}
