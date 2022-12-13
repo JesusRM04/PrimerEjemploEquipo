@@ -19,12 +19,11 @@
     <div class="jumbotron">
         <h1 class="tituloAcerca">¡Buscamos la mayor calidad en nuestros productos!</h1>
         <p class="lead">
-            Para CertificaT solamente se piensa en lo mejor para cualquier persona que desea tomar nuestra certificación, ademas que tenemos todo tipo de horarios en cualquier día de la semana.
+            Nuestra tienda se preocupa por la calidad de nuestros productos, donde nuestros clientes encontraran un producto increible y a buen precio.
         </p>
         <h3 class="h3Acerca">¿Quiénes Somos?</h3>
         <p class="pAcerca">
-            En CapacitaT somos una empresa de capacitación de lenguajes de programación, certificando y capacitando a personal de empresas, profesionistas y universitarios, para cubrir la demanda del mercado nacional e internacional.
-            Tenemos alianzas con las principales marcas y universidades del país, así como con proyectos en todo el país, para la creación de becas en el sector de las Tecnologías de la Información.
+           Somos una empresa independiente que ofrece sus productos mediante nuestros proveedores, buscando siempre los mejores precios y la mayor calidad. Nos ubicamos en Aguascalientes, Mexico aunque nuestros pedidos son enviados por linea.
         </p>
     </div>
     <div id="tarjetas" class="cuerpoAcercade">
@@ -35,9 +34,9 @@
                     <div class="card-body">
                         <h5 class="card-title">MISIÓN</h5>
                         <p class="card-text">
-                            Ayudar al País mejorando el perfil del talento en las TI.
-                            Ofrecer e Impartir de manera eficaz, capacitaciones a Profesionistas y Universitarios, enfocadas a lograr certificaciones reconocidas internacionalmente en el sector de Tecnologías de la Información para cubrir y atender a la demanda del mercado interno y global.
-                            Desarrollar programadores competitivos en cualquier rama del mercado para que no se tenga ningún problema en el país al que vayas o te encuentres.</p>
+                            Ofrecer los productos de mayor calidad, a un precio increible para que nuestros clientes
+                            reciban sus productos deseados en el menor tiempo posible asegurando nuestro sello de calidad 
+                            .</p>
                     </div>
                 </div>
             </div>
@@ -47,8 +46,9 @@
                     <div class="card-body">
                         <h5 class="card-title">VISIÓN</h5>
                         <p class="card-text">
-                            Consolidar a CertificaT en el 2022 como la principal proveedora de capacitación y certificación en todo México, para Instituciones de Nivel Medio Superior y Superior de TI en México.
-                            Nuestra visión contempla un país generador de talentos en Tecnologías de la Información que puedan desarrollar mejores sistemas computacionales que ayuden a mejorar la calidad de vida de las personas de nuestro país y de todo el mundo.
+                            Asegurar el crecimiento de nuestra tienda para lograr vender una mayor cantidad de productos siempre sin perder 
+                            la calidad y precios rentables de nuestros productos siempre sin perder la calidad de nuestros productos, pensando en
+                            un mejor futuro donde las podamos cumplir las expectativas.
                         </p>
                     </div>
                 </div>
@@ -66,7 +66,7 @@
                             <li>Compromiso con resultados</li>
                             <li>Responsabilidad social</li>
                             <li>Creatividad</li>
-                            <li>Entusiastas</li>
+                            <li>Solidaridad</li>
                             <li>Innovadores</li>
                             <li>Impulsores</li>
                             <li>Objetivos</li>

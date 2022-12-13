@@ -1,14 +1,49 @@
+<?php
+// initializ shopping cart class
+include 'La-carta.php';
+$cart = new Cart;
+?>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <!-- CSS only -->
+    <title>CARRITO</title>
+    <meta charset="utf-8">
+     <!-- CSS only -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
     <!-- JavaScript Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="css/estilosmenu.css">
+    <link rel="stylesheet" href="css/estilos.css">   
     <link rel="icon" type="image/x-icon" href="img/logoi.ico">
+    <script src="https://kit.fontawesome.com/c7f9f6173a.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+
+    <style>
+        .container {
+            padding: 20px;
+        }
+
+        input[type="number"] {
+            width: 20%;
+        }
+    </style>
+    <script>
+        function updateCartItem(obj, id) {
+            $.get("cartAction.php", {
+                action: "updateCartItem",
+                id: id,
+                qty: obj.value
+            }, function(data) {
+                if (data == 'ok') {
+                    location.reload();
+                } else {
+                    alert('Cart update failed, please try again.');
+                }
+            });
+        }
+    </script>
+</head>
 </head>
 
 <body>
@@ -39,9 +74,13 @@
                             
                         </ul>
                     </li>
+                      <li class="nav-item">
+                        <a class="btn btn-dark" aria-current="page" href="#"><i class="fa-solid fa-cart-shopping"></i></a>
+                    </li>
+                    
                 </ul>
                 <?php
-                    require_once("validarlogin.php");
+                   require_once("validarlogin.php");
                     if($estado){
                         echo "<p class='texnomu'>".$_SESSION["nomcu"];
                         echo "</p>";
@@ -49,7 +88,7 @@
                             echo "<ul class='navbar-nav me-auto mb-2 mb-lg-0'> <li class='nav-item'>
                         <a class='nav-link active' aria-current='page'' href='verarchivos.php'>Ver Informacion</a>
                             </li>";
-                        }    
+                        }   
                         ?>
                 <form action="logout.php">
                     <button class="btn btn-primary" type="submit">Cerrar Sesion</button>
@@ -136,8 +175,62 @@
         </div>
     </div>
 
+            <div class="panel-body">
 
 
+                <h3>Carrito de compras</h3>
+
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>PRODUCTO</th>
+                            <th>PRECIO</th>
+                            <th>CANTIDAD</th>
+                            <th>SUB TOTAL</th>
+                            <th>&nbsp;</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
+                        if ($cart->total_items() > 0) {
+                            //get cart items from session
+                            $cartItems = $cart->contents();
+                            foreach ($cartItems as $item) {
+                        ?>
+                                <tr>
+                                    <td><?php echo $item["name"]; ?></td>
+                                    <td><?php echo '$' . $item["price"] . ' MX'; ?></td>
+                                    <td><input type="number" class="form-control text-center" value="<?php echo $item["qty"]; ?>" onchange="updateCartItem(this, '<?php echo $item["rowid"]; ?>')"></td>
+                                    <td><?php echo '$' . $item["subtotal"] . ' MX'; ?></td>
+                                    <td>
+                                        <a href="AccionCarta.php?action=removeCartItem&id=<?php echo $item["rowid"]; ?>" class="btn btn-dark" onclick="return confirm('Confirma eliminar?')"><i class="fa-solid fa-trash"></i></a>
+                                    </td>
+                                </tr>
+                            <?php }
+                        } else { ?>
+                            <tr>
+                                <td colspan="5">
+                                    <p>No has agregado ningún producto.....</p>
+                                </td>
+                            <?php } ?>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            
+                            <td colspan="1"></td>
+                            <td colspan="2"></td>
+                            <?php if ($cart->total_items() > 0) { ?>
+                                <td class="text-center"><strong>Total <?php echo '$' . $cart->total() . ' MX'; ?></strong></td>
+                                <td><a href="Pagos.php" class="btn btn-dark">Pagar <i class="glyphicon glyphicon-menu-right"></i></a></td>
+                            <?php } ?>
+                        </tr>
+                    </tfoot>
+                </table>
+
+            </div>
+            
+
+  
 </body>
 
 </html>

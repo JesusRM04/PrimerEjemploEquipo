@@ -1,9 +1,9 @@
-
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
-    <meta charset="UTF-8">
+    <title>ARTICULOS</title>
+    <meta charset="utf-8">
     <!-- CSS only -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
     <!-- JavaScript Bundle with Popper -->
@@ -11,12 +11,27 @@
     <link rel="stylesheet" href="css/estilosmenu.css">
     <link rel="stylesheet" href="css/estilos.css">   
     <link rel="icon" type="image/x-icon" href="img/logoi.ico">
-</head>
+    <script src="https://kit.fontawesome.com/c7f9f6173a.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+    
+    <style>
+        .container {
+            padding: 20px;
+        }
 
+        .cart-link {
+            width: 100%;
+            text-align: right;
+            display: block;
+            font-size: 22px;
+        }
+    </style>
+</head>
+</head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-light ">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">
+            <a class="navbar-brand" href="index.php">
                 <img src="img/logo.png" alt="Logo" width="60" height="40" class="d-inline-block align-text-top">
                 TuAnimeMX
             </a>
@@ -41,6 +56,10 @@
                             
                         </ul>
                     </li>
+                      <li class="nav-item">
+                        <a class="btn btn-dark" aria-current="page" href="carrito.php"><i class="fa-solid fa-cart-shopping"></i></a>
+                    </li>
+                    
                 </ul>
                 <?php
                     require_once("validarlogin.php");
@@ -137,11 +156,13 @@
             </div>
         </div>
     </div>
-    <div class="caja">
+    
+
+     <div class="caja">
          <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post">
-        CATEGORIAS
+       
       <p>
-        GENERO:
+        CATEGORIAS:
 
         <select name="genero">
           <option>TODOS LOS PRODUCTOS</option>
@@ -154,7 +175,7 @@
 
       </p>
 
-     <button class="btn btn-success" type="submit" value="submit" name="enviar">Filtrar</button>
+     <button class="btn btn-dark" type="submit" value="submit" name="enviar">Filtrar</button>
 
     </form>
     </div>
@@ -166,8 +187,7 @@ $cuenta="root";
 $password="";
 $bd="tienda";
 $conexion = new mysqli($servidor,$cuenta,$password,$bd);
-
-    if ($conexion->connect_errno){
+ if ($conexion->connect_errno){
          die('Error en la conexion');
     }
 
@@ -178,10 +198,9 @@ $conexion = new mysqli($servidor,$cuenta,$password,$bd);
          $resultado = $conexion -> query($sql); //aplicamos sentencia
 
          if ($resultado -> num_rows){ //si la consulta genera registros
-
             if(isset($_POST['enviar'])){
              $palabra=$_POST['genero'];
-             if($palabra=="MANGA"){
+             if($palabra=="MANGAS"){
                  categoria_uno($resultado);
                }
                elseif($palabra=="JUGUETES"){
@@ -193,206 +212,149 @@ $conexion = new mysqli($servidor,$cuenta,$password,$bd);
 
 
              }
-         }
-         else{
-             echo "no hay datos";
-         }
-
-    }
-?>
-
- <?php
-    function categoria_uno($resultado){
-         $conta=0;
-        ?>  
-         <script> var array=[];</script> 
-         <?php
-         echo '<h3>MANGAS</h3>';
-             echo '<div class="caja">';
-              echo '<div style="margin-left: 20px;">';
-              echo '<table class="table table-hover" style="width:50%;">';
-
+             else{
+            echo '<h3>TODOS LOS PRODUCTOS</h3>';
+            echo '<div class="caja">';
+            echo '<div style="margin-left: 20px;">';
+            echo '<table class="table table-hover" style="width:50%;">';
                 echo '<tr>';
-                    echo '<th>ID DEL PRODUCTO</th>';
-                    echo '<th>NOMBRE DEL PRODUCTO</th</th>';
-                    echo '<th>DESCRIPCION DEL PRODUCTO</th>';
-                    echo '<th>CANTIDAD DEL PRODUCTO</th>';
-                    echo '<th>PRECIO DEL PRODUCTO</th>'; 
-                    echo '<th>IMAGEN DEL PRODUCTO</th>';
-                echo '</tr>';
-                while( $fila = $resultado -> fetch_assoc()){ //recorremos los registros obtenidos de la tabla 
-                       $producto=$fila['Nombre'];
-                        if($fila['Categoria']=="MANGAS"){
+                        echo '<th>NOMBRE DEL PRODUCTO</th</th>';
+                        echo '<th>CATEGORIA DEL PRODUCTO</th>';
+                        echo '<th>DESCRIPCION DEL PRODUCTO</th>';
+                        echo '<th>CANTIDAD DEL PRODUCTO</th>';
+                        echo '<th>PRECIO DEL PRODUCTO</th>'; 
+                        echo '<th>IMAGEN DEL PRODUCTO</th>';
                          
-                        ?>
-                   <script>
-                     array.push("<?php echo $producto; ?>");   
-                     </script>
-                     <?php
-                   
-                    echo '<tr>';
-                        echo '<td>'. $fila['id'] . '</td>';
-                        echo '<td>'. $fila['Nombre'] . '</td>';
-                        echo '<td>'. $fila['Descripcion'] . '</td>';
-                        echo '<td>'. $fila['Existencias'] . '</td>';
-                        echo '<td> $'. $fila['Precio'] . '</td>';
-                        echo '<td><img class="img" src="img/'.$fila['Imagen'].'"></td>';
-                        ?>             
-                   <td><button class="btn btn-success" id="<?php echo $conta;?>" onclick="agregar(this.id)">AGREGAR PRODUCTO AL CARRITO
-                    </button></td>
-                     <?php  
-                     }
-                     $conta=$conta+1; 
-                      echo '</tr>'; 
-                }
-                
-                echo '</table">';
-
-                echo '</div>';
-             echo '</div>';
-             ?>
-
-            <script>
-        console.log(array);    
-    
-        function agregar(id){
-            var indice = parseInt(id);
-            console.log(`ELEJISTES ${array[indice]}`);       
-         
-        }
-        </script>
-   
- <?php 
-    }  
-    function categoria_dos($resultado){
-        $conta=0;
-        ?>  
-         <script> var array=[];</script> 
-         <?php
-         echo '<h3>JUGUETES</h3>';
-             echo '<div class="caja">';
-              echo '<div style="margin-left: 20px;">';
-              echo '<table class="table table-hover" style="width:50%;">';
-
-                echo '<tr>';
-                    echo '<th>ID DEL PRODUCTO</th>';
-                    echo '<th>NOMBRE DEL PRODUCTO</th</th>';
-                    echo '<th>DESCRIPCION DEL PRODUCTO</th>';
-                    echo '<th>CANTIDAD DEL PRODUCTO</th>';
-                    echo '<th>PRECIO DEL PRODUCTO</th>'; 
-                    echo '<th>IMAGEN DEL PRODUCTO</th>';
                 echo '</tr>';
-                while( $fila = $resultado -> fetch_assoc()){ //recorremos los registros obtenidos de la tabla 
-                       
-                        if($fila['Categoria']=="JUGUETES"){
-                         $producto=$fila['Nombre'];
-                        ?>
-                   <script>
-                     array.push("<?php echo $producto; ?>");   
-                     </script>
-                     <?php
-                   
-                    echo '<tr>';
-                        echo '<td>'. $fila['id'] . '</td>';
-                        echo '<td>'. $fila['Nombre'] . '</td>';
-                        echo '<td>'. $fila['Descripcion'] . '</td>';
-                        echo '<td>'. $fila['Existencias'] . '</td>';
-                        echo '<td> $'. $fila['Precio'] . '</td>';
-                        echo '<td><img class="img" src="img/'.$fila['Imagen'].'"></td>';
-                        ?>             
-                   <td><button class="btn btn-success" id="<?php echo $conta;?>" onclick="agregar(this.id)">AGREGAR PRODUCTO AL CARRITO
-                    </button></td>
-                     <?php  
-                     }
-                     $conta=$conta+1; 
-                      echo '</tr>'; 
-                }
-                
-                echo '</table">';
-
-                echo '</div>';
-             echo '</div>';
-             ?>
-
-            <script>
-        console.log(array);    
-    
-        function agregar(id){
-            var indice = parseInt(id);
-            console.log(`ELEJISTES ${array[indice]}`);       
-         
-        }
-        </script>
-   
-    <?php  
-    }
-    function categoria_tres($resultado){
-         $conta=0;
-         ?>
-       <script> var array=[];</script>
-       <?php 
-         echo '<h3>TODOS LOS PRODUCTOS</h3>';
-             echo '<div class="caja">';
-              echo '<div style="margin-left: 20px;">';
-              echo '<table class="table table-hover" style="width:50%;">';
-
+                while ($fila = $resultado->fetch_assoc()) {
                 echo '<tr>';
-                    echo '<th>ID DEL PRODUCTO</th>';
-                    echo '<th>NOMBRE DEL PRODUCTO</th</th>';
-                    echo '<th>CATEGORIA DEL PRODUCTO</th>';
-                    echo '<th>DESCRIPCION DEL PRODUCTO</th>';
-                    echo '<th>CANTIDAD DEL PRODUCTO</th>';
-                    echo '<th>PRECIO DEL PRODUCTO</th>'; 
-                    echo '<th>IMAGEN DEL PRODUCTO</th>';
-                     
-                echo '</tr>';
-                while( $fila = $resultado -> fetch_assoc()){ //recorremos los registros obtenidos de la tabla
-
-                    $producto=$fila['Nombre'];
-                ?>
-                    <script>
-                     array.push("<?php echo $producto; ?>");   
-                     </script>
-                   <?php  
-                    echo '<tr>';
-                        echo '<td>'. $fila['id'] . '</td>';
                         echo '<td>'. $fila['Nombre'] . '</td>';
                         echo '<td>'. $fila['Categoria'] . '</td>';
                         echo '<td>'. $fila['Descripcion'] . '</td>';
                         echo '<td>'. $fila['Existencias'] . '</td>';
                         echo '<td> $'. $fila['Precio'] . '</td>';
                         echo '<td><img class="img" src="img/'.$fila['Imagen'].'"></td>';
-                           ?>             
-                    <td><button class="btn btn-success" id="<?php echo $conta;?>" onclick="agregar(this.id)">AGREGAR PRODUCTO AL CARRITO
-                    </button></td>
-                     <?php  
+                    ?>
+                        <td><a class="btn btn-dark" href="AccionCarta.php?action=addToCart&id=<?php echo $fila["id"]; ?>">Enviar al Carrito</a></td>                                      
+                    <?php 
+                    echo '</tr>'; 
+                }
+            echo '</table">';
+            echo '</div>';
+            echo '</div>';
+             }
 
-                      
-                     $conta=$conta+1; 
-                      echo '</tr>'; 
 
-                }   
-                echo '</table">';
-
-                echo '</div>';
-             echo '</div>';
-             ?>
-              <script>
-        console.log(array);    
-    
-        function agregar(id){
-            var indice = parseInt(id);
-            console.log(`ELEJISTES ${array[indice]}`);       
-         
+         }
+        else{
+            echo "NO HAY PRODUCTOS";
         }
-        </script>
-        <?php  
     }
 
-?>
+        function categoria_uno($resultado){
+            echo '<h3>MANGAS</h3>';
+            echo '<div class="caja">';
+            echo '<div style="margin-left: 20px;">';
+            echo '<table class="table table-hover" style="width:50%;">';
+            echo '<tr>';
+                    echo '<th>NOMBRE DEL PRODUCTO</th>';
+                    echo '<th>DESCRIPCION DEL PRODUCTO</th>';
+                    echo '<th>CANTIDAD DEL PRODUCTO</th>';
+                    echo '<th>PRECIO DEL PRODUCTO</th>'; 
+                    echo '<th>IMAGEN DEL PRODUCTO</th>';
+                    echo '<th>COMPRA</th>';
+            echo '</tr>';
+             while( $fila = $resultado -> fetch_assoc()){ //recorremos los registros obtenidos de la tabla
+                  if($fila['Categoria']=="MANGAS"){
+                    echo '<tr>';
+                      echo '<tr>';
+                        echo '<td>'. $fila['Nombre'] . '</td>';
+                        echo '<td>'. $fila['Descripcion'] . '</td>';
+                        echo '<td>'. $fila['Existencias'] . '</td>';
+                        echo '<td> $'. $fila['Precio'] . '</td>';
+                        echo '<td><img class="img" src="img/'.$fila['Imagen'].'"></td>'; 
+                        ?>
+                        <td><a class="btn btn-dark" href="AccionCarta.php?action=addToCart&id=<?php echo $fila["id"]; ?>">AGREGAR AL CARRITO</a></td>
+                        <?php  
 
-    
-</body>
+                  }
+            }
+            echo '</table">';
+            echo '</div>';
+            echo '</div>';
+        }
+
+        function categoria_dos($resultado){
+            echo '<h3>JUGUETES</h3>';
+            echo '<div class="caja">';
+            echo '<div style="margin-left: 20px;">';
+            echo '<table class="table table-hover" style="width:50%;">';
+            echo '<tr>';
+                    echo '<th>NOMBRE DEL PRODUCTO</th</th>';
+                    echo '<th>DESCRIPCION DEL PRODUCTO</th>';
+                    echo '<th>CANTIDAD DEL PRODUCTO</th>';
+                    echo '<th>PRECIO DEL PRODUCTO</th>'; 
+                    echo '<th>IMAGEN DEL PRODUCTO</th>';
+             echo '</tr>';
+            while( $fila = $resultado -> fetch_assoc()){ //recorremos los registros obtenidos de la tabla  
+                if($fila['Categoria']=="JUGUETES"){
+                 echo '<tr>';
+                    echo '<td>'. $fila['Nombre'] . '</td>';
+                    echo '<td>'. $fila['Descripcion'] . '</td>';
+                    echo '<td>'. $fila['Existencias'] . '</td>';
+                    echo '<td> $'. $fila['Precio'] . '</td>';
+                    echo '<td><img class="img" src="img/'.$fila['Imagen'].'"></td>';
+                
+            ?>
+                <td><a class="btn btn-dark" href="AccionCarta.php?action=addToCart&id=<?php echo $fila["id"]; ?>">AGREGAR AL CARRITO</a></td>
+            <?php  
+
+            echo '</tr>';
+               } 
+           }
+
+            echo '</table">';
+            echo '</div>';
+            echo '</div>';
+
+
+        }
+
+        function categoria_tres($resultado){
+            echo '<h3>TODOS LOS PRODUCTOS</h3>';
+            echo '<div class="caja">';
+            echo '<div style="margin-left: 20px;">';
+            echo '<table class="table table-hover" style="width:50%;">';
+                echo '<tr>';
+                        echo '<th>NOMBRE DEL PRODUCTO</th</th>';
+                        echo '<th>CATEGORIA DEL PRODUCTO</th>';
+                        echo '<th>DESCRIPCION DEL PRODUCTO</th>';
+                        echo '<th>CANTIDAD DEL PRODUCTO</th>';
+                        echo '<th>PRECIO DEL PRODUCTO</th>'; 
+                        echo '<th>IMAGEN DEL PRODUCTO</th>';
+                         
+                echo '</tr>';
+                while ($fila = $resultado->fetch_assoc()) {
+                echo '<tr>';
+                        echo '<td>'. $fila['Nombre'] . '</td>';
+                        echo '<td>'. $fila['Categoria'] . '</td>';
+                        echo '<td>'. $fila['Descripcion'] . '</td>';
+                        echo '<td>'. $fila['Existencias'] . '</td>';
+                        echo '<td> $'. $fila['Precio'] . '</td>';
+                        echo '<td><img class="img" src="img/'.$fila['Imagen'].'"></td>';
+                    ?>
+                        <td><a class="btn btn-dark" href="AccionCarta.php?action=addToCart&id=<?php echo $fila["id"]; ?>">Enviar al Carrito</a></td>                                      
+                    <?php 
+                    echo '</tr>'; 
+                }
+            echo '</table">';
+            echo '</div>';
+            echo '</div>';
+        }
+
+           
+    ?>
+                
+        </body>
 
 </html>
-
